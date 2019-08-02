@@ -1,19 +1,27 @@
-import React, {useEffect} from "react";
+import React, {useEffect, useState} from "react";
 import "./App.css";
 import axios from "axios";
-// import NasaCards from './NasaCard.js';
-
+import NasaCards from './NasaCards';
 
 function App() {
+  const [images, setImages] = useState([]);
 
   useEffect(() => {
     axios
     .get(`https://api.nasa.gov/planetary/apod?api_key=DEMO_KEY`)
     .then(response => {
       console.log(response)
-      // const nasa = response.data
+      const nasaPic = response.data.url;
+      setImages(nasaPic);
+      console.log(images);
+
     })
-  },[])
+
+    .catch(err => {
+      console.log(`Err`);
+    })
+  })
+  
   return (
     <div className="App">
       <p>
